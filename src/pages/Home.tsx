@@ -17,10 +17,18 @@ export default function Home() {
   const featuredProjects = projects?.slice(0, 3) || [];
   const featuredArticles = articles?.slice(0, 3) || [];
 
+  // Improved scroll function that takes a section index
+  const scrollToSection = (sectionIndex: number) => {
+    const sections = document.querySelectorAll('.section-container');
+    if (sections && sections[sectionIndex]) {
+      sections[sectionIndex].scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div>
       {/* Hero Section */}
-      <AnimatedSection animation="fade-in" className="relative h-screen flex items-center">
+      <AnimatedSection animation="fade-in" className="relative h-screen flex items-center section-container">
         <div className="container px-6 max-w-7xl mx-auto">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
@@ -39,15 +47,22 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <br></br>
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <Button variant="ghost" size="icon" className="rounded-full">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="rounded-full"
+            onClick={() => scrollToSection(1)}
+            aria-label="Scroll to About section"
+          >
             <ArrowDown className="h-6 w-6" />
           </Button>
         </div>
       </AnimatedSection>
 
       {/* About Section */}
-      <AnimatedSection animation="slide-up" className="py-20">
+      <AnimatedSection animation="slide-up" className="py-20 section-container relative">
         <div className="container px-6 max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -83,10 +98,22 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <br></br>
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="rounded-full"
+            onClick={() => scrollToSection(2)}
+            aria-label="Scroll to Projects section"
+          >
+            <ArrowDown className="h-6 w-6" />
+          </Button>
+        </div>
       </AnimatedSection>
 
       {/* Recent Projects Section */}
-      <AnimatedSection animation="slide-up" delay={200} className="py-20 bg-secondary/50">
+      <AnimatedSection animation="slide-up" delay={200} className="py-20 bg-secondary/50 section-container relative">
         <div className="container px-6 max-w-7xl mx-auto">
           <SectionHeading 
             title="Recent Projects" 
@@ -111,10 +138,22 @@ export default function Home() {
             </Button>
           </div>
         </div>
+        <br></br>
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="rounded-full"
+            onClick={() => scrollToSection(3)}
+            aria-label="Scroll to Articles section"
+          >
+            <ArrowDown className="h-6 w-6" />
+          </Button>
+        </div>
       </AnimatedSection>
 
       {/* Recent Articles Section */}
-      <AnimatedSection animation="slide-up" delay={400} className="py-20">
+      <AnimatedSection animation="slide-up" delay={400} className="py-20 section-container relative">
         <div className="container px-6 max-w-7xl mx-auto">
           <SectionHeading 
             title="Recent Articles" 
@@ -139,10 +178,22 @@ export default function Home() {
             </Button>
           </div>
         </div>
+        <br></br>
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="rounded-full"
+            onClick={() => scrollToSection(4)}
+            aria-label="Scroll to CTA section"
+          >
+            <ArrowDown className="h-6 w-6" />
+          </Button>
+        </div>
       </AnimatedSection>
 
       {/* CTA Section */}
-      <AnimatedSection animation="fade-in" delay={600} className="py-20 bg-accent text-accent-foreground">
+      <AnimatedSection animation="fade-in" delay={600} className="py-20 bg-accent text-accent-foreground section-container">
         <div className="container px-6 max-w-7xl mx-auto">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Let's Work Together</h2>
