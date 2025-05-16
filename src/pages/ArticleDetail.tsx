@@ -24,14 +24,17 @@ export default function ArticleDetail() {
     return (
       <div className="animate-fade-in">
         <div className="container px-6 max-w-7xl mx-auto pt-8 pb-20">
-          <div className="mb-8">
+        <br></br>
+        <br></br>
+        <br></br>
+          {/* <div className="mb-8">
             <Button variant="ghost" asChild>
               <Link to="/articles" className="flex items-center gap-2">
                 <ArrowLeft className="h-4 w-4" />
                 Back to Articles
               </Link>
             </Button>
-          </div>
+          </div> */}
 
           <div className="max-w-4xl mx-auto">
             <Skeleton className="h-12 w-3/4 mb-4" />
@@ -110,14 +113,17 @@ export default function ArticleDetail() {
   return (
     <div className="animate-fade-in">
       <div className="container px-6 max-w-7xl mx-auto pt-8 pb-20">
-        <div className="mb-8">
+      <br></br>
+      <br></br>
+      <br></br>
+        {/* <div className="mb-8">
           <Button variant="ghost" asChild>
             <Link to="/articles" className="flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />
               Back to Articles
             </Link>
           </Button>
-        </div>
+        </div> */}
 
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
