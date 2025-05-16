@@ -97,7 +97,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
           <Button 
             variant="ghost" 
             size="icon" 
@@ -136,7 +136,7 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
           <Button 
             variant="ghost" 
             size="icon" 
@@ -175,7 +175,7 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
           <Button 
             variant="ghost" 
             size="icon" 
