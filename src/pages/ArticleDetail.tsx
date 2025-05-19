@@ -105,9 +105,9 @@ export default function ArticleDetail() {
 
   // Author information - you might need to adjust this based on your database schema
   const authorInfo = {
-    name: "Admin", // Default author name
+    name: "Sampada Pandit", // Default author name
     title: "Author", // Default author title
-    image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04" // Default author image
+    image: "https://avatars.githubusercontent.com/u/48679174?s=96&v=4" // Default author image
   };
 
   return (
