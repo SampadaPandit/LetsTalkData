@@ -11,6 +11,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/components/ui/sonner';
 import { Badge } from '@/components/ui/badge';
 import { X, Upload } from 'lucide-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface AboutData {
   id?: string;
@@ -38,7 +39,33 @@ export default function AboutAdmin() {
   const [currentSkill, setCurrentSkill] = useState('');
   const [uploadingResume, setUploadingResume] = useState(false);
   const [resumeFile, setResumeFile] = useState<File | null>(null);
-  
+  const queryClient = useQueryClient();
+
+  const updateAboutMutation = useMutation({
+    mutationFn: async (aboutData: any) => {
+      if (formData.id) {
+        const { error } = await supabase
+          .from('about')
+          .update(aboutData)
+          .eq('id', formData.id);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase
+          .from('about')
+          .insert([aboutData]);
+        if (error) throw error;
+      }
+    },
+    onSuccess: () => {
+      toast.success('About information saved successfully');
+      // Invalidate and refetch
+      return queryClient.invalidateQueries({ queryKey: ['about'] });
+    },
+    onError: (error: any) => {
+      toast.error(`Error saving about information: ${error.message}`);
+    }
+  });
+
   useEffect(() => {
     if (!isLoading && !isAdmin) {
       navigate('/admin/login');
@@ -184,27 +211,7 @@ export default function AboutAdmin() {
       const aboutData = { ...formData };
       delete aboutData.id; // Remove id for upsert operation
       
-      if (formData.id) {
-        // Update existing record
-        const { error } = await supabase
-          .from('about')
-          .update(aboutData)
-          .eq('id', formData.id);
-          
-        if (error) throw error;
-      } else {
-        // Insert new record
-        const { error } = await supabase
-          .from('about')
-          .insert([aboutData]);
-          
-        if (error) throw error;
-      }
-      
-      toast.success('About information saved successfully');
-      fetchAboutData(); // Refresh data
-    } catch (error: any) {
-      toast.error(`Error saving about information: ${error.message}`);
+      await updateAboutMutation.mutateAsync(aboutData);
     } finally {
       setSaving(false);
     }

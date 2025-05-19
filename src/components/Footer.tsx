@@ -10,7 +10,7 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Portfolio</h3>
             <p className="text-muted-foreground">
-              Data Scientist & Analyst showcasing projects and articles.
+              Data Analyst showcasing projects and articles.
             </p>
           </div>
           

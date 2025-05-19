@@ -18,6 +18,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface Article {
   id: string;
@@ -30,51 +31,53 @@ interface Article {
 }
 
 export default function ArticlesAdmin() {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const { isAdmin, isLoading } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isLoading && !isAdmin) {
-      navigate('/admin/login');
-      return;
-    }
-
-    fetchArticles();
-  }, [isAdmin, isLoading, navigate]);
-
-  async function fetchArticles() {
-    try {
-      setLoading(true);
+  const { data: articles = [], isLoading: loading } = useQuery({
+    queryKey: ['articles'],
+    queryFn: async () => {
       const { data, error } = await supabase
         .from('articles')
         .select('*')
         .order('display_order', { ascending: true });
 
       if (error) throw error;
-      setArticles(data || []);
-    } catch (error: any) {
-      toast.error(`Error fetching articles: ${error.message}`);
-    } finally {
-      setLoading(false);
+      return data || [];
     }
-  }
+  });
+
+  const deleteArticleMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase
+        .from('articles')
+        .delete()
+        .eq('id', id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      toast.success('Article deleted successfully');
+      return queryClient.invalidateQueries({ queryKey: ['articles'] });
+    },
+    onError: (error: any) => {
+      toast.error(`Error deleting article: ${error.message}`);
+    }
+  });
+
+  useEffect(() => {
+    if (!isLoading && !isAdmin) {
+      navigate('/admin/login');
+      return;
+    }
+  }, [isAdmin, isLoading, navigate]);
 
   async function handleDelete() {
     if (!deleteId) return;
     
     try {
-      const { error } = await supabase
-        .from('articles')
-        .delete()
-        .eq('id', deleteId);
-        
-      if (error) throw error;
-      
-      setArticles((prev) => prev.filter(article => article.id !== deleteId));
-      toast.success('Article deleted successfully');
+      deleteArticleMutation.mutate(deleteId);
     } catch (error: any) {
       toast.error(`Error deleting article: ${error.message}`);
     } finally {

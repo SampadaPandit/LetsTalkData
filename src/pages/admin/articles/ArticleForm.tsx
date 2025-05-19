@@ -12,6 +12,7 @@ import { toast } from '@/components/ui/sonner';
 import { ChevronLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { X } from 'lucide-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface ArticleFormData {
   title: string;
@@ -37,7 +38,32 @@ export default function ArticleForm() {
   });
   const [loading, setLoading] = useState(false);
   const [currentTag, setCurrentTag] = useState('');
-  
+  const queryClient = useQueryClient();
+
+  const saveArticleMutation = useMutation({
+    mutationFn: async (formData: any) => {
+      if (isEditing) {
+        const { error } = await supabase
+          .from('articles')
+          .update(formData)
+          .eq('id', id);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase
+          .from('articles')
+          .insert([formData]);
+        if (error) throw error;
+      }
+    },
+    onSuccess: () => {
+      toast.success(`Article ${isEditing ? 'updated' : 'created'} successfully`);
+      return queryClient.invalidateQueries({ queryKey: ['articles'] });
+    },
+    onError: (error: any) => {
+      toast.error(`Error saving article: ${error.message}`);
+    }
+  });
+
   useEffect(() => {
     if (!isLoading && !isAdmin) {
       navigate('/admin/login');

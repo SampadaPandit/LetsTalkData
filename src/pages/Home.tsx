@@ -32,7 +32,7 @@ export default function Home() {
         <div className="container px-6 max-w-7xl mx-auto">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-              <span className="text-primary">Data Scientist</span> & <span className="text-primary">Analyst</span>
+              <span className="text-primary">Data Analyst</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
               Transforming complex data into actionable insights and elegant solutions.
