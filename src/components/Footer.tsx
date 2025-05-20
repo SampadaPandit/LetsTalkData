@@ -33,6 +33,31 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <span className="text-muted-foreground">Blog</span>
+                <ul className="pl-4 mt-1 space-y-1">
+                  <li>
+                    <a 
+                      href="https://medium.com/@sampada_pandit" 
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Medium
+                    </a>
+                  </li>
+                  <li>
+                    <a 
+                      href="https://powerbivisualization.blogspot.com/" 
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Blogger
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li>
                 <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">
                   About
                 </Link>

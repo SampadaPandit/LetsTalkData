@@ -3,11 +3,25 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { name: "Home", path: "/" },
   { name: "Projects", path: "/projects" },
   { name: "Articles", path: "/articles" },
+  { 
+    name: "Blog", 
+    submenu: [
+      { name: "Medium", path: "https://medium.com/@sampada_pandit" },
+      { name: "Blogger", path: "https://powerbivisualization.blogspot.com/" }
+    ]
+  },
   { name: "About", path: "/about" },
   { name: "Contact", path: "/contact" },
 ];
@@ -43,18 +57,41 @@ export function Navbar() {
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-6">
           {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                location.pathname === item.path
-                  ? "text-primary"
-                  : "text-muted-foreground"
-              )}
-            >
-              {item.name}
-            </Link>
+            item.submenu ? (
+              <DropdownMenu key={item.name}>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary text-muted-foreground">
+                  {item.name}
+                  <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="center">
+                  {item.submenu.map((subItem) => (
+                    <DropdownMenuItem key={subItem.name} asChild>
+                      <a 
+                        href={subItem.path} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="cursor-pointer"
+                      >
+                        {subItem.name}
+                      </a>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  location.pathname === item.path
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                )}
+              >
+                {item.name}
+              </Link>
+            )
           ))}
           <ThemeToggle />
         </nav>
@@ -101,19 +138,41 @@ export function Navbar() {
       >
         <nav className="flex flex-col space-y-4">
           {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={cn(
-                "px-2 py-1.5 text-sm font-medium transition-colors hover:text-primary",
-                location.pathname === item.path
-                  ? "text-primary"
-                  : "text-muted-foreground"
-              )}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item.name}
-            </Link>
+            item.submenu ? (
+              <div key={item.name} className="space-y-2">
+                <div className="px-2 py-1.5 text-sm font-medium text-muted-foreground">
+                  {item.name}
+                </div>
+                <div className="pl-4 space-y-2">
+                  {item.submenu.map((subItem) => (
+                    <a
+                      key={subItem.name}
+                      href={subItem.path}
+                      className="block px-2 py-1.5 text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {subItem.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={cn(
+                  "px-2 py-1.5 text-sm font-medium transition-colors hover:text-primary",
+                  location.pathname === item.path
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                )}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            )
           ))}
         </nav>
       </div>
