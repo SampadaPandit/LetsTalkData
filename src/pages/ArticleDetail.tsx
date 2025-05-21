@@ -74,34 +74,45 @@ export default function ArticleDetail() {
   // If no article is found, this will redirect via the useEffect above
   if (!article) return null;
 
-  // Convert markdown-like content to JSX
-  const renderContent = () => {
-    const lines = article.content.split('\n');
-    return lines.map((line, index) => {
-      line = line.trim();
-      if (!line) return <div key={index} className="my-4"></div>;
+  // Process content to handle both HTML and markdown-like syntax
+  const processContent = () => {
+    // Check if content contains HTML tags
+    const containsHtml = /<[a-z][\s\S]*>/i.test(article.content);
+    
+    if (containsHtml) {
+      // If content contains HTML, return it to be rendered with dangerouslySetInnerHTML
+      return article.content;
+    } else {
+      // If content is markdown-like, process it as before
+      const lines = article.content.split('\n');
+      let processedContent = '';
       
-      if (line.startsWith('# ')) {
-        return <h1 key={index} className="text-3xl font-bold mt-8 mb-6">{line.substring(2)}</h1>;
-      } else if (line.startsWith('## ')) {
-        return <h2 key={index} className="text-2xl font-semibold mt-8 mb-4">{line.substring(3)}</h2>;
-      } else if (line.startsWith('### ')) {
-        return <h3 key={index} className="text-xl font-medium mt-6 mb-3">{line.substring(4)}</h3>;
-      } else if (line.startsWith('- ')) {
-        return <li key={index} className="ml-6 mb-2">{line.substring(2)}</li>;
-      } else if (line.startsWith('```')) {
-        return (
-          <pre key={index} className="bg-secondary p-4 rounded-lg overflow-x-auto my-4">
-            <code>{lines[index + 1]}</code>
-          </pre>
-        );
-      } else if (line.includes('```')) {
-        return null; // Skip code block closing tags
-      } else {
-        return <p key={index} className="mb-4">{line}</p>;
-      }
-    });
+      lines.forEach((line) => {
+        line = line.trim();
+        if (!line) {
+          processedContent += '<div class="my-4"></div>';
+        } else if (line.startsWith('# ')) {
+          processedContent += `<h1 class="text-3xl font-bold mt-8 mb-6">${line.substring(2)}</h1>`;
+        } else if (line.startsWith('## ')) {
+          processedContent += `<h2 class="text-2xl font-semibold mt-8 mb-4">${line.substring(3)}</h2>`;
+        } else if (line.startsWith('### ')) {
+          processedContent += `<h3 class="text-xl font-medium mt-6 mb-3">${line.substring(4)}</h3>`;
+        } else if (line.startsWith('- ')) {
+          processedContent += `<li class="ml-6 mb-2">${line.substring(2)}</li>`;
+        } else if (line.startsWith('```')) {
+          processedContent += `<pre class="bg-secondary p-4 rounded-lg overflow-x-auto my-4"><code>`;
+        } else if (line.includes('```')) {
+          processedContent += `</code></pre>`;
+        } else {
+          processedContent += `<p class="mb-4">${line}</p>`;
+        }
+      });
+      
+      return processedContent;
+    }
   };
+
+  const processedContent = processContent();
 
   // Author information - you might need to adjust this based on your database schema
   const authorInfo = {
@@ -162,7 +173,8 @@ export default function ArticleDetail() {
           </div>
           
           <div className="prose-custom">
-            {renderContent()}
+            {/* Replace the renderContent() call with dangerouslySetInnerHTML */}
+            <div dangerouslySetInnerHTML={{ __html: processedContent }} />
           </div>
         </div>
       </div>
