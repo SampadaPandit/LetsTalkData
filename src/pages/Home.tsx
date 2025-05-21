@@ -30,20 +30,32 @@ export default function Home() {
       {/* Hero Section */}
       <AnimatedSection animation="fade-in" className="relative h-screen flex items-center section-container">
         <div className="container px-6 max-w-7xl mx-auto">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-              <span className="text-primary">Data Analyst</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Transforming complex data into actionable insights and elegant solutions.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button asChild size="lg">
-                <Link to="/projects">View My Work</Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/contact">Get In Touch</Link>
-              </Button>
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="max-w-3xl md:max-w-[50%]">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+                <span className="text-primary">Data Analyst</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8">
+                Transforming complex data into actionable insights and elegant solutions.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button asChild size="lg">
+                  <Link to="/projects">View My Work</Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/contact">Get In Touch</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="mt-8 md:mt-0 md:ml-auto md:translate-x-[25%]">
+              <div className="w-[36rem] h-[36rem] md:w-[45rem] md:h-[45rem] overflow-hidden border-2 border-gray-700 relative">
+                <div className="absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.5)] pointer-events-none z-10"></div>
+                <img 
+                  src="https://github.com/SampadaPandit/LetsTalkData_Dev/blob/master/images/Sampada_Website_Profile%20with%20BG-2.jpg?raw=true" 
+                  alt="Sampada Pandit" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
             </div>
           </div>
         </div>
