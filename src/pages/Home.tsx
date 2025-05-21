@@ -47,8 +47,8 @@ export default function Home() {
                 </Button>
               </div>
             </div>
-            <div className="mt-8 md:mt-0 md:ml-auto md:translate-x-[25%]">
-              <div className="w-[36rem] h-[36rem] md:w-[45rem] md:h-[45rem] overflow-hidden border-2 border-gray-700 relative">
+            <div className="mt-8 md:mt-0 md:ml-auto md:translate-x-[-25%]">
+              <div className="w-[80vw] h-[80vw] sm:w-[60vw] sm:h-[60vw] md:w-[45vw] md:h-[45vw] lg:w-[35vw] lg:h-[35vw] xl:w-[30vw] xl:h-[30vw] max-w-[500px] max-h-[500px] overflow-hidden border-2 border-gray-700 relative">
                 <div className="absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.5)] pointer-events-none z-10"></div>
                 <img 
                   src="https://github.com/SampadaPandit/LetsTalkData_Dev/blob/master/images/Sampada_Website_Profile%20with%20BG-2.jpg?raw=true" 
