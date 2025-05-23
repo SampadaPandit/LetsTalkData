@@ -79,7 +79,7 @@ export default function Home() {
             <div>
               <SectionHeading 
                 title="About Me" 
-                subtitle={aboutLoading ? "Loading..." : aboutInfo?.bio?.substring(0, 120) + "..." || "Hello! I'm a data scientist and analyst passionate about turning data into meaningful insights that drive decisions."}
+                //subtitle={aboutLoading ? "Loading..." : aboutInfo?.bio?.substring(0, 120) + "..." || "Hello! I'm a data scientist and analyst passionate about turning data into meaningful insights that drive decisions."}
               />
               <p className="text-muted-foreground mb-6">
                 {aboutLoading ? "" : aboutInfo?.bio || "With expertise in statistical analysis, machine learning, and data visualization, I help organizations leverage their data to solve complex problems. My approach combines technical skills with business acumen to deliver actionable results."}
