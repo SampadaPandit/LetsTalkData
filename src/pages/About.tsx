@@ -29,9 +29,8 @@ export default function About() {
                     <h3 className="text-xl font-semibold mt-8 mb-4">When I'm not working...</h3>
                     
                     <p>
-                      When I'm not working with data, I enjoy hiking, photography, and contributing to open source 
-                      projects. I'm also an avid reader and particularly enjoy books on technology trends, 
-                      behavioral economics, and science fiction.
+                      When I'm not working with data, I enjoy creating arts, writing poetry, and contributing to open source 
+                      projects. I'm sometimes like reading too.
                     </p>
                   </>
                 )}
